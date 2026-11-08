@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Name – Web &amp; Game Developer</title>
+<meta name="description" content="Portfolio of Your Name, a BSIT student who builds websites and games with HTML, CSS, JavaScript, C#, Unity and Roblox.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%237c6cff'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='800'%3EY%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root, [data-theme="dark"] {
+    --bg:#0b0d17; --surface:#12162a; --line:#232842; --ink:#eef0ff; --muted:#9aa1c4;
+    --a:#7c6cff; --b:#22d3ee; --glow:.35;
+  }
+  [data-theme="light"] {
+    --bg:#f6f7fc; --surface:#ffffff; --line:#e1e4f2; --ink:#12152b; --muted:#5f6688;
+    --a:#5b4bff; --b:#0891b2; --glow:.18;
+  }
+  * { box-sizing:border-box; margin:0; }
+  html { scroll-behavior:smooth; scroll-padding-top:80px; }
+  body { font-family:"Plus Jakarta Sans",system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  .wrap { width:min(1080px, 100% - 48px); margin-inline:auto; }
+  section { padding:96px 0; }
+  .grad { background:linear-gradient(100deg,var(--a),var(--b)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .eyebrow { font-size:.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--a); margin-bottom:12px; }
+  h2 { font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-.03em; line-height:1.15; margin-bottom:40px; }
+
+  /* Nav */
+  .nav { position:fixed; inset:0 0 auto; z-index:50; background:color-mix(in srgb,var(--bg) 78%,transparent); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+  .nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { font-weight:800; font-size:1.15rem; letter-spacing:-.02em; }
+  .logo span { color:var(--a); }
+  .links { display:flex; align-items:center; gap:6px; }
+  .links a { font-size:.9rem; font-weight:600; color:var(--muted); padding:8px 12px; border-radius:10px; transition:.15s; }
+  .links a:hover { color:var(--ink); background:var(--surface); }
+  .icon-btn { width:38px; height:38px; border-radius:10px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; display:grid; place-items:center; font-size:1rem; }
+  .burger { display:none; }
+  .btn { display:inline-flex; align-items:center; gap:8px; font:inherit; font-weight:700; font-size:.95rem; padding:13px 22px; border-radius:12px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; transition:transform .15s, box-shadow .15s; }
+  .btn:hover { transform:translateY(-2px); }
+  .btn.primary { background:linear-gradient(100deg,var(--a),var(--b)); border:0; color:#fff; box-shadow:0 10px 30px -10px var(--a); }
+
+  /* Hero */
+  .hero { padding:170px 0 90px; position:relative; }
+  .hero::before, .hero::after { content:""; position:absolute; border-radius:50%; filter:blur(90px); opacity:var(--glow); z-index:-1; }
+  .hero::before { width:420px; height:420px; background:var(--a); top:40px; left:-120px; }
+  .hero::after { width:360px; height:360px; background:var(--b); top:160px; right:-100px; }
+  .pill { display:inline-flex; align-items:center; gap:8px; font-size:.82rem; font-weight:600; padding:7px 14px; border-radius:99px; border:1px solid var(--line); background:var(--surface); margin-bottom:26px; }
+  .dot { width:8px; height:8px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 4px rgba(34,197,94,.2); }
+  h1 { font-size:clamp(2.6rem,7.5vw,5.2rem); letter-spacing:-.045em; line-height:1.03; max-width:14ch; margin-bottom:22px; }
+  .lead { color:var(--muted); font-size:1.1rem; max-width:52ch; margin-bottom:34px; }
+  .cta { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:56px; }
+  .stats { display:flex; flex-wrap:wrap; gap:36px; }
+  .stats b { display:block; font-size:2rem; letter-spacing:-.03em; }
+  .stats span { color:var(--muted); font-size:.85rem; }
+
+  /* About */
+  .about { display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:start; }
+  .about p { color:var(--muted); margin-bottom:16px; font-size:1.02rem; }
+  .skills { background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:26px; }
+  .skills h3 { font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; }
+  .skills h3:not(:first-child) { margin-top:22px; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; }
+  .chip { font-size:.8rem; font-weight:600; padding:6px 12px; border-radius:99px; background:color-mix(in srgb,var(--a) 12%,transparent); color:var(--ink); border:1px solid color-mix(in srgb,var(--a) 28%,transparent); }
+
+  /* Projects */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:22px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:20px; overflow:hidden; transition:transform .25s, border-color .25s, box-shadow .25s; display:flex; flex-direction:column; }
+  .card:hover { transform:translateY(-6px); border-color:var(--a); box-shadow:0 24px 50px -24px var(--a); }
+  .thumb { height:170px; position:relative; display:grid; place-items:center; font-size:2.6rem; font-weight:800; letter-spacing:-.04em; color:rgba(255,255,255,.92); }
+  .card .body { padding:22px; display:flex; flex-direction:column; gap:10px; flex:1; }
+  .card h3 { font-size:1.18rem; letter-spacing:-.02em; }
+  .card p { color:var(--muted); font-size:.92rem; flex:1; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0; }
+  .tags span { font-size:.72rem; font-weight:600; color:var(--muted); border:1px solid var(--line); padding:3px 9px; border-radius:99px; }
+  .card .row { display:flex; gap:16px; font-size:.88rem; font-weight:700; }
+  .card .row a { color:var(--a); }
+  .card .row a:hover { text-decoration:underline; }
+
+  /* Timeline */
+  .timeline { border-left:2px solid var(--line); margin-left:8px; }
+  .item { position:relative; padding:0 0 38px 30px; }
+  .item::before { content:""; position:absolute; left:-8px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--bg); border:3px solid var(--a); }
+  .item time { font-size:.8rem; font-weight:700; color:var(--a); }
+  .item h3 { font-size:1.15rem; letter-spacing:-.02em; margin:2px 0 6px; }
+  .item p { color:var(--muted); max-width:60ch; }
+
+  /* Contact */
+  .contact { background:var(--surface); border:1px solid var(--line); border-radius:28px; padding:clamp(28px,6vw,64px); display:grid; grid-template-columns:1fr 1fr; gap:40px; position:relative; overflow:hidden; }
+  .contact h2 { margin-bottom:14px; }
+  .contact p { color:var(--muted); margin-bottom:22px; }
+  .socials { display:flex; flex-wrap:wrap; gap:10px; }
+  form { display:grid; gap:12px; }
+  input, textarea { font:inherit; font-size:.95rem; width:100%; padding:13px 15px; border-radius:12px; border:1px solid var(--line); background:var(--bg); color:var(--ink); resize:vertical; }
+  input:focus, textarea:focus { outline:none; border-color:var(--a); box-shadow:0 0 0 4px color-mix(in srgb,var(--a) 22%,transparent); }
+  footer { padding:34px 0 50px; color:var(--muted); font-size:.85rem; text-align:center; border-top:1px solid var(--line); }
+
+  /* Reveal on scroll */
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce) { .reveal { opacity:1; transform:none; transition:none; } html { scroll-behavior:auto; } }
+
+  @media (max-width:800px) {
+    section { padding:72px 0; }
+    .about, .contact { grid-template-columns:1fr; }
+    .burger { display:grid; }
+    .links { position:absolute; top:64px; left:0; right:0; flex-direction:column; align-items:stretch; padding:12px 24px 20px; background:var(--bg); border-bottom:1px solid var(--line); display:none; }
+    .links.open { display:flex; }
+    .hero { padding-top:130px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">your<span>.</span>name</a>
+    <div class="links" id="links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Journey</a>
+      <a href="#contact">Contact</a>
+      <button class="icon-btn" id="theme" aria-label="Toggle light and dark theme">☾</button>
+    </div>
+    <button class="icon-btn burger" id="burger" aria-label="Open menu">☰</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="pill reveal"><span class="dot"></span> Open to collabs and projects</div>
+    <h1 class="reveal">I make <span class="grad">games &amp; websites</span> I love.</h1>
+    <p class="lead reveal">Hi, I’m <strong>Your Name</strong>, a 1st year BSIT student who loves building websites and games. I work with HTML, CSS, JavaScript, C#, Unity and Roblox Studio.</p>
+    <div class="cta reveal">
+      <a class="btn primary" href="#work">View my work →</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+    <div class="stats reveal">
+      <div><b>BSIT</b><span>1st year student</span></div>
+      <div><b>2</b><span>Game engines: Unity &amp; Roblox</span></div>
+      <div><b>4</b><span>Languages: HTML, CSS, JS, C#</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="reveal">
+      <div class="eyebrow">About me</div>
+      <h2>A student who loves making things.</h2>
+      <p>I started with HTML and got hooked on building websites and games. Seeing something I made actually work, and having people use it, is my favorite part of coding.</p>
+      <p>I’m studying Information Technology and learning something new every week. Lately I’ve been building web apps with Firebase, hosting them on Vercel, and making games in Unity and Roblox.</p>
+      <a class="btn" href="#work">See what I’ve made</a>
+    </div>
+    <div class="skills reveal">
+      <h3>Web</h3>
+      <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Firebase</span></div>
+      <h3>Game development</h3>
+      <div class="chips"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">Roblox Studio</span></div>
+      <h3>Tools</h3>
+      <div class="chips"><span class="chip">Git &amp; GitHub</span><span class="chip">Vercel</span><span class="chip">VS Code</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="eyebrow reveal">Selected work</div>
+    <h2 class="reveal">Projects I’m proud of</h2>
+    <!-- EDIT: change titles, descriptions, tags and links. Duplicate a card to add more. -->
+    <div class="grid">
+      <article class="card reveal">
+        <div class="thumb" style="background:linear-gradient(135deg,#4f46e5,#22d3ee)">Z</div>
+        <div class="body">
+          <h3>Zalvethon</h3>
+          <p>A community website with accounts, a live thoughts feed, profiles, coins and an admin panel. Built with Firebase and hosted on Vercel.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Firebase</span></div>
+          <div class="row"><a href="https://zalvethon.vercel.app" target="_blank" rel="noopener">Visit site ↗</a><a href="#">Code ↗</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="thumb" style="background:linear-gradient(135deg,#14b8a6,#6366f1)">P</div>
+        <div class="body">
+          <h3>Phantasim</h3>
+          <p>A website I designed and built from scratch, hosted on Vercel. Add a line about what it does and who it’s for.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="row"><a href="https://phantasim.vercel.app" target="_blank" rel="noopener">Visit site ↗</a><a href="#">Code ↗</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="thumb" style="background:linear-gradient(135deg,#10b981,#0ea5e9)">U</div>
+        <div class="body">
+          <h3>My Unity Game</h3>
+          <p>A game made in Unity with C#. Add what it’s about, how it plays and what you learned making it.</p>
+          <div class="tags"><span>Unity</span><span>C#</span></div>
+          <div class="row"><a href="#">Play ↗</a><a href="#">Code ↗</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="thumb" style="background:linear-gradient(135deg,#ec4899,#f59e0b)">R</div>
+        <div class="body">
+          <h3>My Roblox Game</h3>
+          <p>A game I built in Roblox Studio. Add its name, the idea behind it and how many people have played.</p>
+          <div class="tags"><span>Roblox Studio</span><span>Scripting</span></div>
+          <div class="row"><a href="#">Play on Roblox ↗</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="thumb" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)">&lt;/&gt;</div>
+        <div class="body">
+          <h3>This Portfolio</h3>
+          <p>The site you’re looking at: responsive, with a light and dark mode, built by hand and deployed on Vercel.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="row"><a href="#">Code ↗</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow reveal">My journey</div>
+    <h2 class="reveal">How I got here</h2>
+    <div class="timeline">
+      <div class="item reveal"><time>Now</time><h3>BS Information Technology, 1st year</h3><p>Studying programming fundamentals, web development and how software works, while building projects on the side.</p></div>
+      <div class="item reveal"><time>Game development</time><h3>Unity, C# and Roblox Studio</h3><p>Started making games for fun, then learned C# for Unity and scripting for Roblox to bring my ideas to life.</p></div>
+      <div class="item reveal"><time>Web development</time><h3>HTML, CSS, JavaScript and Firebase</h3><p>Began with HTML, then added CSS and JavaScript. Built Zalvethon with Firebase for logins and data, and deployed it on Vercel.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <div>
+        <div class="eyebrow">Contact</div>
+        <h2>Let’s build something <span class="grad">great</span>.</h2>
+        <p>Have a project in mind or just want to say hi? Send a message and I’ll reply as soon as I can.</p>
+        <div class="socials">
+          <a class="btn" href="mailto:you@example.com">you@example.com</a>
+          <a class="btn" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <form id="form">
+        <input id="fName" placeholder="Your name" required>
+        <input id="fEmail" type="email" placeholder="Your email" required>
+        <textarea id="fMsg" rows="5" placeholder="Tell me about your project" required></textarea>
+        <button class="btn primary" type="submit" style="justify-content:center">Send message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="year"></span> Your Name. Built with care and deployed on Vercel.</footer>
+
+<script>
+  const root = document.documentElement, themeBtn = document.getElementById("theme");
+
+  // Theme: saved choice, else the visitor's system setting
+  function setTheme(t) {
+    root.dataset.theme = t;
+    themeBtn.textContent = t === "dark" ? "☾" : "☀";
+    try { localStorage.setItem("theme", t); } catch (e) {}
+  }
+  let saved = null;
+  try { saved = localStorage.getItem("theme"); } catch (e) {}
+  setTheme(saved || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"));
+  themeBtn.onclick = () => setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+
+  // Mobile menu
+  const links = document.getElementById("links");
+  document.getElementById("burger").onclick = () => links.classList.toggle("open");
+  links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => links.classList.remove("open")));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  // Contact form opens the visitor's email app (change you@example.com)
+  document.getElementById("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const body = `${fMsg.value}\n\n— ${fName.value} (${fEmail.value})`;
+    location.href = `mailto:you@example.com?subject=${encodeURIComponent("Portfolio message from " + fName.value)}&body=${encodeURIComponent(body)}`;
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
